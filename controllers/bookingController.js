@@ -9,7 +9,7 @@ const AppError = require('./../utils/appError');
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   //1) Get the currently booked tour
   const tour = await Tour.findById(req.params.tourId);
-  console.log(req);
+  // console.log(req);
   //2)Create Checkout Session
   const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
   const session = await stripe.checkout.sessions.create({
