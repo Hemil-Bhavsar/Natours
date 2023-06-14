@@ -1,3 +1,2 @@
-# Natours Application
-
-Built using node,express,mongoDb,mongoose 
+# Natours
+Built using node,express,mongoDB and mongoose
