@@ -28,7 +28,7 @@ app.set('Content-Type', 'application/javascript');
 //Implement cors
 app.use(cors());
 
-app.options('/api/v1/tours/:id',cors());
+app.options('/api/v1/tours/',cors());
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
 
