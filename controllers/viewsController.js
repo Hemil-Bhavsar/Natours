@@ -23,6 +23,14 @@ router.use((req, res, next) => {
   next();
 });
 
+exports.alerts = (req, res, next) => {
+  const { alert } = req.query;
+  if (alert === 'booking') {
+    res.locals.alert =
+      'Your booking was successful! Please check your email for confirmation.\n If your booking does not show here immediately, please come back later!';
+  }
+};
+
 exports.getOverview = catchAsync(async (req, res, next) => {
   // 1) Get tour data from collection
   const tours = await Tour.find();
@@ -97,17 +105,16 @@ exports.updateUserData = catchAsync(async (req, res, next) => {
   });
 });
 
-
-exports.getMyTours=catchAsync(async(req,res,next)=>{
+exports.getMyTours = catchAsync(async (req, res, next) => {
   //1)Find all bookings
-  const bookings=await Booking.find({user:req.user.id})
-  
-  //2)Find tours with the returned IDs
-  const tourIDs=bookings.map(el=>el.tour);
-  const tours=await Tour.find({_id:{$in: tourIDs}})
+  const bookings = await Booking.find({ user: req.user.id });
 
-  res.status(200).render('overview',{
-    title:'My Tours',
-    tours
+  //2)Find tours with the returned IDs
+  const tourIDs = bookings.map((el) => el.tour);
+  const tours = await Tour.find({ _id: { $in: tourIDs } });
+
+  res.status(200).render('overview', {
+    title: 'My Tours',
+    tours,
   });
-})
+});
